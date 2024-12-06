@@ -30,6 +30,7 @@ async function run() {
     await client.connect();
 
     const campCollection =client.db('campDB').collection('camp')
+    const donatedCollections =client.db('donateDB').collection('donatedCollection')
 
     app.get('/newcamp', async(req, res)=>{
         const cursor= campCollection.find()
@@ -55,7 +56,7 @@ async function run() {
 });
 
 // get single data api
-app.get('/newcamp/:id', async(req, res)=>{
+app.get('/allCamp/:id', async(req, res)=>{
 const id =req.params.id
 const query ={_id: new ObjectId(id)}
 const result =await campCollection.findOne(query)
@@ -71,8 +72,26 @@ res.send(result)
 
     })
     
-    
-
+    //post my donated data
+    app.post('/allDonation', async(req, res)=>{
+      const donatedData =req.body
+      const result =await donatedCollections.insertOne(donatedData)
+      res.send(result)
+    }) 
+    // read for donated data
+    app.get('/allDonation', async(req, res)=>{
+      const cursor= donatedCollections.find()
+      const result =await cursor.toArray()
+      res.send(result)
+    })
+// get data by user name
+app.get(`/allDonation/:email`,async(req, res)=>{
+  const email =req.params.email
+  const query ={userEmail:email}
+  const allEmail =donatedCollections.find(query)
+  const result =await allEmail.toArray()
+  res.send(result)
+})
     
     
 
