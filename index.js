@@ -92,6 +92,15 @@ app.get(`/allDonation/:email`,async(req, res)=>{
   const result =await allEmail.toArray()
   res.send(result)
 })
+// get data by id for update
+app.get('/updateData/:id', async(req, res)=>{
+  const id =req.params.id
+  const query ={_id:new ObjectId(id)}
+  const data =await donatedCollections.findOne(query)
+  // console.log(data)
+  res.send(data)
+})
+
     
     
 
