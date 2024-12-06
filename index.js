@@ -84,7 +84,7 @@ res.send(result)
       const result =await cursor.toArray()
       res.send(result)
     })
-// get data by user name
+// get data by user email for donation campaign
 app.get(`/allDonation/:email`,async(req, res)=>{
   const email =req.params.email
   const query ={userEmail:email}
@@ -92,16 +92,23 @@ app.get(`/allDonation/:email`,async(req, res)=>{
   const result =await allEmail.toArray()
   res.send(result)
 })
-// get data by id for update
-app.get('/updateData/:id', async(req, res)=>{
-  const id =req.params.id
-  const query ={_id:new ObjectId(id)}
-  const data =await donatedCollections.findOne(query)
-  // console.log(data)
-  res.send(data)
+// get data by user email for my campaign
+app.get(`/myCampaign/:email`,async(req, res)=>{
+  const email =req.params.email
+  const query ={userEmail:email}
+  const allEmail =campCollection.find(query)
+  const result =await allEmail.toArray()
+  res.send(result)
 })
 
-    
+
+// delete
+app.delete('/allCamp/:id', async(req, res)=>{
+  const id =req.params.id
+  const query ={_id: new ObjectId(id)}
+  const result =await campCollection.deleteOne(query)
+  res.send(result)
+  })
     
 
     // Send a ping to confirm a successful connection
