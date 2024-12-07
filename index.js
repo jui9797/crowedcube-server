@@ -101,6 +101,28 @@ app.get(`/myCampaign/:email`,async(req, res)=>{
   res.send(result)
 })
 
+// put
+app.put('/allCamp/:id', async(req,res)=>{
+  const id =req.params.id
+  const filter={_id: new ObjectId(id)}
+  const options ={upsert:true}
+  const updatedCamp =req.body
+  const campaign ={
+    $set:{
+      image:updatedCamp.image,
+      title:updatedCamp.title,
+      type:updatedCamp.type,
+      description:updatedCamp.description,
+      minDonation:updatedCamp.minDonation,
+      deadline:updatedCamp.deadline,
+      userEmail:updatedCamp.userEmail,
+      userName:updatedCamp.userName
+    }
+  }
+  const result =await campCollection.updateOne(filter, campaign, options)
+  res.send(result)
+})
+
 
 // delete
 app.delete('/allCamp/:id', async(req, res)=>{
