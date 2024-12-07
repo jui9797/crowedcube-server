@@ -84,17 +84,25 @@ res.send(result)
       const result =await cursor.toArray()
       res.send(result)
     })
+    // donation single data
+    app.get('/allDonation/single/:id', async(req, res)=>{
+      const id =req.params.id
+      console.log(id)
+      const query ={_id: new ObjectId(id)}
+      const result =await donatedCollections.findOne(query)
+      res.send(result)
+      })
 // get data by user email for donation campaign
-app.get(`/allDonation/:email`,async(req, res)=>{
-  const email =req.params.email
+app.get(`/allDonationData`,async(req, res)=>{
+  const email =req.query.email
   const query ={userEmail:email}
   const allEmail =donatedCollections.find(query)
   const result =await allEmail.toArray()
   res.send(result)
 })
 // get data by user email for my campaign
-app.get(`/myCampaign/:email`,async(req, res)=>{
-  const email =req.params.email
+app.get(`/myCampaign`,async(req, res)=>{
+  const email =req.query.email
   const query ={userEmail:email}
   const allEmail =campCollection.find(query)
   const result =await allEmail.toArray()
