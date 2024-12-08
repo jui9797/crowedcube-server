@@ -8,5 +8,5 @@
 
 - Deploy this site on VERCEL
 
-# Live lLink #
+# Live Link #
 - **live(https://assignment10-server-ten.vercel.app/)**
