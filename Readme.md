@@ -1,5 +1,5 @@
 # Project Name #
-- Assignment-10 server site
+- CrowedCube server site
 
 # CRUD OPERATION #
 - GET, PUT, DELETE, POST
